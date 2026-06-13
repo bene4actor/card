@@ -1,0 +1,108 @@
+<MainLayout>:
+    orientation: "vertical"
+    padding: 20
+    spacing: 15
+
+    canvas.before:
+        Color:
+            rgba: 0.95, 0.95, 0.97, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    # 💳 Баланс (карточка)
+    BoxLayout:
+        size_hint_y: None
+        height: 120
+        padding: 15
+        canvas.before:
+            Color:
+                rgba: 0.2, 0.6, 0.9, 1
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [20]
+
+        Label:
+            text: root.balance_text
+            font_size: 28
+            bold: True
+            color: 1, 1, 1, 1
+
+    # 📊 Заголовок
+    Label:
+        text: "Добавить расход"
+        font_size: 18
+        size_hint_y: None
+        height: 30
+        color: 0.2, 0.2, 0.2, 1
+
+    # 💰 Ввод суммы
+    TextInput:
+        id: amount_input
+        hint_text: "Введите сумму"
+        multiline: False
+        input_filter: "int"
+        size_hint_y: None
+        height: 50
+        font_size: 18
+
+    # 🏷 Категории
+    BoxLayout:
+        size_hint_y: None
+        height: 50
+        spacing: 10
+
+        Button:
+            text: "Столовая"
+            background_color: (0.2, 0.6, 0.9, 1) if root.selected_category == "Столовая" else (0.8, 0.8, 0.8, 1)
+            background_normal: ''
+            on_press: root.set_canteen()
+
+        Button:
+            text: "Магазин"
+            background_color: (0.2, 0.6, 0.9, 1) if root.selected_category == "Магазин" else (0.8, 0.8, 0.8, 1)
+            background_normal: ''
+            on_press: root.set_shop()
+
+        Button:
+            text: "Другое"
+            background_color: (0.2, 0.6, 0.9, 1) if root.selected_category == "Другое" else (0.8, 0.8, 0.8, 1)
+            background_normal: ''
+            on_press: root.set_other()
+
+    # ➕ Кнопка
+    Button:
+        text: "Добавить расход"
+        size_hint_y: None
+        height: 60
+        background_color: 0.2, 0.7, 0.3, 1
+        color: 1, 1, 1, 1
+        font_size: 18
+
+        on_press:
+            self.background_color = (0.1, 0.5, 0.2, 1)
+            root.add_expense()
+
+        on_release:
+            self.background_color = (0.2, 0.7, 0.3, 1)
+
+    # 📜 История
+    Label:
+        text: "История"
+        size_hint_y: None
+        height: 30
+        font_size: 18
+        bold: True
+        color: 0.1, 0.1, 0.1, 1
+        halign: "left"
+        valign: "middle"
+        text_size: self.size
+
+    ScrollView:
+        Label:
+            text: root.history_text
+            size_hint_y: None
+            text_size: self.width, None
+            height: self.texture_size[1]
+            color: 0.2, 0.2, 0.2, 1
