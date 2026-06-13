@@ -1,108 +1,114 @@
+#:import dp kivy.metrics.dp
+#:import sp kivy.metrics.sp
+
 <MainLayout>:
     orientation: "vertical"
-    padding: 20
-    spacing: 15
+    padding: dp(15)
+    spacing: dp(12)
 
     canvas.before:
         Color:
-            rgba: 0.95, 0.95, 0.97, 1
+            rgba: 0.95, 0.96, 0.98, 1
         Rectangle:
             pos: self.pos
             size: self.size
 
-    # 💳 Баланс (карточка)
     BoxLayout:
         size_hint_y: None
-        height: 120
-        padding: 15
+        height: dp(150)
+        padding: dp(20)
+
         canvas.before:
             Color:
-                rgba: 0.2, 0.6, 0.9, 1
+                rgba: 0.15, 0.45, 0.85, 1
             RoundedRectangle:
                 pos: self.pos
                 size: self.size
-                radius: [20]
+                radius: [25]
 
         Label:
             text: root.balance_text
-            font_size: 28
-            bold: True
             color: 1, 1, 1, 1
+            bold: True
+            font_size: sp(28)
 
-    # 📊 Заголовок
-    Label:
-        text: "Добавить расход"
-        font_size: 18
-        size_hint_y: None
-        height: 30
-        color: 0.2, 0.2, 0.2, 1
-
-    # 💰 Ввод суммы
     TextInput:
         id: amount_input
         hint_text: "Введите сумму"
         multiline: False
         input_filter: "int"
-        size_hint_y: None
-        height: 50
-        font_size: 18
 
-    # 🏷 Категории
+        size_hint_y: None
+        height: dp(60)
+
+        font_size: sp(20)
+
     BoxLayout:
         size_hint_y: None
-        height: 50
-        spacing: 10
+        height: dp(60)
+        spacing: dp(8)
 
         Button:
             text: "Столовая"
-            background_color: (0.2, 0.6, 0.9, 1) if root.selected_category == "Столовая" else (0.8, 0.8, 0.8, 1)
-            background_normal: ''
+            font_size: sp(22)
+            background_normal: ""
+            background_color: (0.15,0.45,0.85,1) if root.selected_category == "Столовая" else (0.8,0.8,0.8,1)
             on_press: root.set_canteen()
 
         Button:
             text: "Магазин"
-            background_color: (0.2, 0.6, 0.9, 1) if root.selected_category == "Магазин" else (0.8, 0.8, 0.8, 1)
-            background_normal: ''
+            font_size: sp(22)
+            background_normal: ""
+            background_color: (0.15,0.45,0.85,1) if root.selected_category == "Магазин" else (0.8,0.8,0.8,1)
             on_press: root.set_shop()
 
         Button:
             text: "Другое"
-            background_color: (0.2, 0.6, 0.9, 1) if root.selected_category == "Другое" else (0.8, 0.8, 0.8, 1)
-            background_normal: ''
+            font_size: sp(22)
+            background_normal: ""
+            background_color: (0.15,0.45,0.85,1) if root.selected_category == "Другое" else (0.8,0.8,0.8,1)
             on_press: root.set_other()
 
-    # ➕ Кнопка
-    Button:
-        text: "Добавить расход"
+    Label:
+        text: root.selected_category
         size_hint_y: None
-        height: 60
+        height: dp(25)
+        color: 0.2, 0.2, 0.2, 1
+        font_size: sp(16)
+
+    Button:
+        text: "+ Добавить расход"
+
+        size_hint_y: None
+        height: dp(65)
+
+        font_size: sp(20)
+
+        background_normal: ""
         background_color: 0.2, 0.7, 0.3, 1
-        color: 1, 1, 1, 1
-        font_size: 18
 
-        on_press:
-            self.background_color = (0.1, 0.5, 0.2, 1)
-            root.add_expense()
+        on_press: root.add_expense()
 
-        on_release:
-            self.background_color = (0.2, 0.7, 0.3, 1)
-
-    # 📜 История
     Label:
         text: "История"
         size_hint_y: None
-        height: 30
-        font_size: 18
+        height: dp(30)
+
+        font_size: sp(20)
         bold: True
-        color: 0.1, 0.1, 0.1, 1
-        halign: "left"
-        valign: "middle"
-        text_size: self.size
+
+        color: 0.15, 0.15, 0.15, 1
 
     ScrollView:
+
         Label:
             text: root.history_text
-            size_hint_y: None
+
             text_size: self.width, None
+
+            size_hint_y: None
             height: self.texture_size[1]
+
+            font_size: sp(16)
+
             color: 0.2, 0.2, 0.2, 1

@@ -53,6 +53,23 @@ class MainLayout(BoxLayout):
 
         return sum(item["amount"] for item in history)
 
+    def delete_expense(self, index):
+        month = self.data["current_month"]
+        history = self.data["months"][month]["history"]
+
+        if index < 0 or index >= len(history):
+            return
+
+        expense = history[index]
+
+        self.data["months"][month]["balance"] += expense["amount"]
+
+        del history[index]
+
+        self.save_data()
+        self.update_balance()
+        self.update_history()
+
     def check_new_month(self):
         current_month = datetime.now().strftime("%Y-%m")
 

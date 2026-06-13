@@ -2,34 +2,8 @@
     "current_month": "2026-06",
     "months": {
         "2026-06": {
-            "balance": 18000,
-            "history": [
-                {
-                    "amount": 660,
-                    "date": "13.06.26  05:31",
-                    "category": "Столовая"
-                },
-                {
-                    "amount": 160,
-                    "date": "13.06.26  05:42",
-                    "category": "Столовая"
-                },
-                {
-                    "amount": 123,
-                    "date": "13.06.26  05:50",
-                    "category": "Магазин"
-                },
-                {
-                    "amount": 500,
-                    "date": "13.06.26  05:52",
-                    "category": "Другое"
-                },
-                {
-                    "amount": 557,
-                    "date": "13.06.26  06:00",
-                    "category": "Другое"
-                }
-            ]
+            "balance": 20000,
+            "history": []
         }
     }
 }
