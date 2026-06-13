@@ -1,4 +1,4 @@
-name: Build APK
+name: Build APK v2
 
 on:
   push:
@@ -21,8 +21,9 @@ jobs:
       run: |
         sudo apt update
         sudo apt install -y python3-pip git zip unzip openjdk-17-jdk
-        pip install --upgrade pip
-        pip install cython==0.29.36 buildozer
+        pip install --upgrade pip setuptools wheel
+        pip install cython==0.29.36 
+        pip install buildozer
 
     - name: Build APK
       run: |
