@@ -1,4 +1,4 @@
-name: Build Card APK
+name: Build APK (Docker)
 
 on:
   push:
@@ -6,36 +6,18 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
+
+    container:
+      image: kivy/buildozer:latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout
       uses: actions/checkout@v4
-
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.10
-
-    - name: Install system packages
-      run: |
-        sudo apt update
-        sudo apt install -y git zip unzip openjdk-17-jdk python3-pip
-
-    - name: Install build tools (FIXED VERSIONS)
-      run: |
-        python -m pip install --upgrade pip
-        pip install cython==0.29.36
-        pip install buildozer==1.5.0
-        pip install "python-for-android==2023.9.16"
-
-    - name: Clean previous builds
-      run: |
-        rm -rf .buildozer
 
     - name: Build APK
       run: |
-        buildozer -v android debug
+        buildozer android debug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
