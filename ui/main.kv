@@ -14,6 +14,7 @@
             size: self.size
 
     BoxLayout:
+        orientations: "vertical"
         size_hint_y: None
         height: dp(150)
         padding: dp(20)
@@ -27,10 +28,19 @@
                 radius: [25]
 
         Label:
+            text: "Баланс"
+            color: 1, 1, 1, 1
+            font_size: sp(28)
+        Label:
             text: root.balance_text
             color: 1, 1, 1, 1
             bold: True
-            font_size: sp(28)
+            font_size: sp(34)
+
+        Label:
+            text: root.spent_text
+            color: 1, 1, 1, 0.9
+            font_size: sp(16)
 
     TextInput:
         id: amount_input

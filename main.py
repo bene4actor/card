@@ -12,7 +12,8 @@ DATA_FILE = "data.json"
 
 
 class MainLayout(BoxLayout):
-    balance_text = StringProperty("Баланс: 0 Р")
+    balance_text = StringProperty("")
+    spent_text = StringProperty("")
     history_text = StringProperty("")
     selected_category = StringProperty("Столовая")
     category_text = StringProperty("Категория: Столовая")
@@ -112,7 +113,8 @@ class MainLayout(BoxLayout):
         balance = self.data["months"][month]["balance"]
         spent = self.get_total_spent()
 
-        self.balance_text = f"Баланс: {balance} Р | Потрачено: {spent} Р"
+        self.balance_text = f"{balance} Р"
+        self.spent_text = f"Потрачено: {spent} Р"
 
     def update_history(self):
         month = self.data["current_month"]
