@@ -4,7 +4,10 @@ from datetime import datetime
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.properties import StringProperty
+from kivy.metrics import dp, sp
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.label import Label
+from kivy.uix.button import Button
 
 Builder.load_file("ui/main.kv")
 
@@ -117,15 +120,58 @@ class MainLayout(BoxLayout):
         self.spent_text = f"Потрачено: {spent} Р"
 
     def update_history(self):
+        container = self.ids.history_container
+        container.clear_widgets()
+
         month = self.data["current_month"]
         history = self.data["months"][month]["history"]
-        lines = []
 
-        for item in reversed(history):
-            lines.append(
-                f'{item["date"]} - {item["amount"]} Р --- {item["category"]}'
+        for real_index in range(len(history) -1, -1, -1):
+            item = history[real_index]
+
+            row = BoxLayout(
+                orientation="horizontal",
+                size_hint_y=None,
+                height=dp(50),
+                spacing=dp(10)
             )
-        self.history_text = "\n".join(lines)
+
+            text = (
+                f'{item["date"]} | '
+                f'{item["amount"]} Р | '
+                f'{item["category"]}'
+            )
+
+            lbl = Label(
+                text=text,
+                size_hint_x=1,
+                color=(0.2, 0.2, 0.2, 1)
+            )
+
+            btn = Button(
+                text="Х",
+                size_hint_x=None,
+                width=dp(70),
+
+                background_normal="",
+                background_down="",
+
+                background_color=(0, 0, 0, 0),
+
+                color=(0.9, 0.2, 0.2, 1),
+
+                font_size=sp(22),
+                bold=True
+            )
+
+            btn.bind(
+                on_press=lambda instance, idx=real_index: self.delete_expense(idx)
+            )
+
+            row.add_widget(lbl)
+            row.add_widget(btn)
+
+            container.add_widget(row)
 
     def add_expense(self):
         text = self.ids.amount_input.text

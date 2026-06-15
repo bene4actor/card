@@ -14,9 +14,9 @@
             size: self.size
 
     BoxLayout:
-        orientations: "vertical"
+        orientation: "vertical"
         size_hint_y: None
-        height: dp(150)
+        height: dp(180)
         padding: dp(20)
 
         canvas.before:
@@ -111,14 +111,11 @@
 
     ScrollView:
 
-        Label:
-            text: root.history_text
+        GridLayout:
+            id: history_container
 
-            text_size: self.width, None
+            cols: 1
+            spacing: dp(5)
 
             size_hint_y: None
-            height: self.texture_size[1]
-
-            font_size: sp(16)
-
-            color: 0.2, 0.2, 0.2, 1
+            height: self.minimum_height
