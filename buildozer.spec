@@ -12,6 +12,8 @@ version = 1.0
 
 orientation = portrait
 
+icon.filename = assets/app.png
+
 [buildozer]
 log_level = 2
 warn_on_root = 1

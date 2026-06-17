@@ -116,8 +116,8 @@ class MainLayout(BoxLayout):
         balance = self.data["months"][month]["balance"]
         spent = self.get_total_spent()
 
-        self.balance_text = f"{balance} Р"
-        self.spent_text = f"Потрачено: {spent} Р"
+        self.balance_text = f"{balance} ₽"
+        self.spent_text = f"Потрачено: {spent} ₽"
 
     def update_history(self):
         container = self.ids.history_container
@@ -138,7 +138,7 @@ class MainLayout(BoxLayout):
 
             text = (
                 f'{item["date"]} | '
-                f'{item["amount"]} Р | '
+                f'{item["amount"]} ₽ | '
                 f'{item["category"]}'
             )
 
@@ -179,7 +179,7 @@ class MainLayout(BoxLayout):
         if not text:
             return
         try:
-            amount = int(text)
+            amount = float(text.replace(",", "."))
         except:
             return
 
