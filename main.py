@@ -98,7 +98,7 @@ class MainLayout(BoxLayout):
             "current_month": current_month,
             "months": {
                 current_month: {
-                    "balance": 20000,
+                    "balance": 20000 * 100,
                     "history": []
                 }
             }
@@ -116,8 +116,8 @@ class MainLayout(BoxLayout):
         balance = self.data["months"][month]["balance"]
         spent = self.get_total_spent()
 
-        self.balance_text = f"{balance} ₽"
-        self.spent_text = f"Потрачено: {spent} ₽"
+        self.balance_text = f"{balance / 100:.2f} ₽"
+        self.spent_text = f"Потрачено: {spent / 100:.2f} ₽"
 
     def update_history(self):
         container = self.ids.history_container
@@ -138,7 +138,7 @@ class MainLayout(BoxLayout):
 
             text = (
                 f'{item["date"]} | '
-                f'{item["amount"]} ₽ | '
+                f'{item["amount"] / 100:.2f} ₽ | '
                 f'{item["category"]}'
             )
 
@@ -185,6 +185,8 @@ class MainLayout(BoxLayout):
 
         if amount <= 0:
             return
+
+        amount = int(round(amount*100))
 
         month = self.data["current_month"]
 
