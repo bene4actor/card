@@ -86,7 +86,7 @@ class MainLayout(BoxLayout):
 
             if current_month not in self.data["months"]:
                 self.data["months"][current_month] = {
-                    "balance": 20000,
+                    "balance": 20000 * 100,
                     "history": []
                 }
             self.save_data()
